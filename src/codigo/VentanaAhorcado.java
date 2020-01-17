@@ -18,6 +18,8 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     //esta variable guarda cuantos fallos llevo en el juego!!!
     int numeroFallos=0;
     String palabraOculta= eligePalabra();
+    //indica el final de la partida
+    boolean seHaMuerto= false;
    
    
     public VentanaAhorcado() {
@@ -44,9 +46,10 @@ public class VentanaAhorcado extends javax.swing.JFrame {
 //este metodo recibe el boton que ha sido pulsado 
     //y procesa si tiene esta letara en el juego
  public void chequeaBoton(JButton boton){
-      boton.setEnabled(false);
+     if(!seHaMuerto){ 
+     boton.setEnabled(false);
       chequeLetra(boton.getText());
-      
+     }
     }
  private void chequeLetra(String letra){
      
@@ -68,11 +71,15 @@ public class VentanaAhorcado extends javax.swing.JFrame {
         if(!palabraConGuiones.contains("_")){
             numeroFallos=-1;
             dibujaImagen();
+            seHaMuerto=true;
         }
          
          
      }else{
          numeroFallos++;
+         if(numeroFallos>=6){
+             seHaMuerto = true;
+         }
          dibujaImagen();
      }
      
